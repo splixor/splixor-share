@@ -1,0 +1,44 @@
+"use client";
+
+import { useState } from "react";
+import { NewVoteModal, OtherVoteModal, RecordedVoteModal } from "./voteModal";
+
+const subscriptionServices = [
+  "Netflix",
+  "Spotify",
+  "YouTube Premium",
+  "Freepik",
+  "Apple Music",
+  "Canva",
+  "Others",
+];
+
+export default function SubscriptionButtons() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleClick = (service: string) => {
+    if (service !== "Others") {
+      setIsModalOpen(true);
+    }
+  };
+
+  return (
+    <>
+      <div className="mt-4 flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
+        {subscriptionServices.map((service) => (
+          <button
+            key={service}
+            onClick={() => handleClick(service)}
+            className="cursor-pointer px-6 py-3 h-[48px] rounded-full transition-all duration-200 hover:scale-105 font-family-general-sans font-medium md:text-sm bg-[#2A2A33] border border-[#2A2A33] text-[#A6A6B0] hover:bg-[#4F46E5] hover:text-white"
+          >
+            {service}
+          </button>
+        ))}
+      </div>
+
+      {/* Modal */}
+      {isModalOpen && <RecordedVoteModal onClose={() => setIsModalOpen(false)} />}
+      {/* {isModalOpen && <NewVoteModal onClose={() => setIsModalOpen(false)} />} */}
+    </>
+  );
+}
