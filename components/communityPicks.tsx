@@ -81,7 +81,7 @@ export default function CommunityPicks() {
               {/* Progress Bar */}
               <div className="w-6 h-16 bg-gray-800 rounded-lg overflow-hidden mb-2 flex flex-col-reverse">
                 <div 
-                  className="transition-all duration-500 ease-out rounded-lg"
+                  className="transition-all duration-500 ease-out rounded-t-lg"
                   style={{ 
                     backgroundColor: color,
                     height: `${heightPercentage}%`,
@@ -91,7 +91,7 @@ export default function CommunityPicks() {
               </div>
               
               {/* Percentage */}
-              <div className="text-white font-medium text-sm mb-1">
+              <div className="text-[#FF841F] font-medium font-family-general-sans text-sm mb-1">
                 {stat.percentage}%
               </div>
               
