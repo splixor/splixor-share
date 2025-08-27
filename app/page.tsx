@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import SubscriptionButtons from "@/components/subscription";
+import CommunityPicks from "@/components/communityPicks";
 
 export default function Home() {
   const floatingLogos = [
@@ -31,7 +32,7 @@ export default function Home() {
             x: [0, "-50%"],
           }}
           transition={{
-            duration: 50,
+            duration: 15,
             repeat: Infinity,
             ease: "linear",
             repeatType: "loop",
@@ -58,7 +59,7 @@ export default function Home() {
             x: ["-50%", 0],
           }}
           transition={{
-            duration: 25,
+            duration: 20,
             repeat: Infinity,
             ease: "linear",
             repeatType: "loop",
@@ -81,13 +82,13 @@ export default function Home() {
         </motion.div>
 
         {/* Row 3 - Moving right slower */}
-        {/* <motion.div
-          className="absolute bottom-40 flex gap-20 opacity-10"
+        <motion.div
+          className="absolute top-[40rem] flex gap-20 opacity-10"
           animate={{
             x: [0, "-50%"]
           }}
           transition={{
-            duration: 40,
+            duration: 25,
             repeat: Infinity,
             ease: "linear",
             repeatType: "loop"
@@ -99,13 +100,13 @@ export default function Home() {
                <Image 
                 src={logo.src} 
                 alt={logo.name} 
-                width={200} 
-                height={300}
+                width={250}
+                height={150}
                 className="object-contain"
               />
             </div>
           ))}
-        </motion.div> */}
+        </motion.div>
 
         {/* Row 4 - Moving left faster */}
         {/* <motion.div
@@ -166,20 +167,10 @@ export default function Home() {
             <p className="text-[#A6A6B0] text-sm md:text-base font-family-general-sans font-medium">
               Which subscription do you use the most?
             </p>
-
-            {/* Subscription Buttons */}
-           <SubscriptionButtons />
+            <SubscriptionButtons />
           </div>
         </div>
-
-          {/* Community Picks Section */}
-          <div className="mt-16 bg-gray-900/50 rounded-2xl p-8 backdrop-blur-sm">
-            <h3 className="text-white text-2xl font-semibold mb-8">Community Picks</h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4">
-             
-            </div>
-          </div>
+        <CommunityPicks />
       </section>
     </main>
   );
