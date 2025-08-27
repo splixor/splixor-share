@@ -1,65 +1,128 @@
-import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabaseClient';
+import { createClient } from '@supabase/supabase-js'
+import { NextRequest, NextResponse } from 'next/server'
 
-type VoteBody = {
-  email?: string;
-  fingerprint?: string;
-  ip_address: string;
-  vote_option: string;
-};
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+)
 
-export async function POST(req: Request) {
+function getClientIP(request: NextRequest): string {
+  // Check various headers for client IP
+  const xForwardedFor = request.headers.get('x-forwarded-for')
+  const xRealIP = request.headers.get('x-real-ip')
+  const cfConnectingIP = request.headers.get('cf-connecting-ip')
+  
+  if (xForwardedFor) {
+    return xForwardedFor.split(',')[0].trim()
+  }
+  if (cfConnectingIP) {
+    return cfConnectingIP
+  }
+  if (xRealIP) {
+    return xRealIP
+  }
+  
+  // Fallback to localhost if no IP headers are found
+  return '127.0.0.1'
+}
+
+export async function POST(request: NextRequest) {
   try {
-    const body: VoteBody = await req.json();
-    const { email, fingerprint, ip_address, vote_option } = body;
+    const body = await request.json()
+    const { serviceName, email, fingerprint } = body
 
-    // Check for duplicate votes by email, fingerprint, or IP
-    const { data: existingVote, error: voteCheckError } = await supabase
+    if (!serviceName) {
+      return NextResponse.json({ error: 'Service name is required' }, { status: 400 })
+    }
+
+    const ipAddress = getClientIP(request)
+
+    // Check if user has already voted using IP and fingerprint
+    let existingVoteQuery = supabase
       .from('votes')
       .select('*')
-      .or(
-        `${email ? `email.eq.${email},` : ''}${
-          fingerprint ? `fingerprint.eq.${fingerprint},` : ''
-        }ip_address.eq.${ip_address}`
-      )
-      .maybeSingle();
+      .eq('ip_address', ipAddress)
 
-    if (voteCheckError) throw voteCheckError;
-
-    if (existingVote) {
-      return NextResponse.json(
-        { error: 'Duplicate vote detected' },
-        { status: 400 }
-      );
+    if (fingerprint) {
+      existingVoteQuery = existingVoteQuery.eq('fingerprint', fingerprint)
     }
 
-    // Insert vote
-    const { error: insertVoteError } = await supabase.from('votes').insert([
-      {
+    const { data: existingVotes } = await existingVoteQuery
+
+    if (existingVotes && existingVotes.length > 0) {
+      return NextResponse.json(
+        { message: 'Already voted', vote: existingVotes[0] },
+        { status: 409 }
+      )
+    }
+
+    // Insert new vote
+    const { data: newVote, error: voteError } = await supabase
+      .from('votes')
+      .insert({
         email: email || null,
         fingerprint: fingerprint || null,
-        ip_address,
-        vote_option,
-      },
-    ]);
+        ip_address: ipAddress,
+        vote_option: serviceName
+      })
+      .select()
+      .single()
 
-    if (insertVoteError) throw insertVoteError;
-
-    // If email provided, insert into subscribers (ignore duplicate)
-    if (email) {
-      await supabase
-        .from('subscribers')
-        .upsert({ email }, { onConflict: 'email' });
+    if (voteError) {
+      console.error('Vote insert error:', voteError)
+      return NextResponse.json({ error: 'Failed to record vote' }, { status: 500 })
     }
 
-    return NextResponse.json({ success: true });
-  } catch (err) {
-    console.error('Vote API Error:', err);
-    return NextResponse.json(
-      { error: 'Something went wrong' },
-      { status: 500 }
-    );
+     // If email is provided, also add to subscribers (but don't fail if duplicate)
+    if (email) {
+      const { error: subscriberError } = await supabase
+        .from('subscribers')
+        .insert({ email })
+        .select()
+
+      if (subscriberError && subscriberError.code !== '23505') { // Ignore unique constraint violations
+        console.error('Subscriber insert error:', subscriberError)
+      }
+    }
+
+    return NextResponse.json({ message: 'Vote recorded successfully', vote: newVote })
+
+  } catch (error) {
+    console.error('API error:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
 
+export async function GET() {
+  try {
+    const { data: votes, error } = await supabase
+      .from('votes')
+      .select('vote_option')
 
+    if (error) {
+      console.error('Error fetching votes:', error)
+      return NextResponse.json({ error: 'Failed to fetch votes' }, { status: 500 })
+    }
+
+    // Count votes by service
+    const voteCounts: { [key: string]: number } = {}
+    const totalVotes = votes.length
+
+    votes.forEach(vote => {
+      voteCounts[vote.vote_option] = (voteCounts[vote.vote_option] || 0) + 1
+    })
+
+    // Calculate percentages
+    const voteStats = Object.entries(voteCounts).map(([service, count]) => ({
+      service,
+      count,
+      percentage: totalVotes > 0 ? Math.round((count / totalVotes) * 100) : 0
+    }))
+
+    return NextResponse.json({ voteStats, totalVotes })
+
+  } catch (error) {
+    console.error('API error:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}

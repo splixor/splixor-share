@@ -107,33 +107,6 @@ export default function Home() {
             </div>
           ))}
         </motion.div>
-
-        {/* Row 4 - Moving left faster */}
-        {/* <motion.div
-          className="absolute bottom-20 flex gap-20 opacity-25"
-          animate={{
-            x: ["-50%", 0]
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear",
-            repeatType: "loop"
-          }}
-          style={{ x: 0 }}
-        >
-          {createLoopingArray(floatingLogos.slice().reverse(), 6).map((logo, i) => (
-            <div key={i} className="flex-shrink-0">
-              <Image 
-                src={logo.src} 
-                alt={logo.name} 
-                width={200} 
-                height={300}
-                className="object-contain"
-              />
-            </div>
-          ))}
-        </motion.div> */}
       </div>
 
       {/* main content div */}

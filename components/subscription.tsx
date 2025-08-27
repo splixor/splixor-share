@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NewVoteModal, OtherVoteModal, RecordedVoteModal } from "./voteModal";
+import { generateFingerprint } from "@/lib/fingerprint";
 
 const subscriptionServices = [
   "Netflix",
@@ -18,6 +19,12 @@ export default function SubscriptionButtons() {
     "new" | "recorded" | "other" | null
   >(null);
   const [selectedService, setSelectedService] = useState<string>("");
+  const [fingerprint, setFingerprint] = useState<string>("");
+
+  useEffect(() => {
+    // Generate fingerprint on client side
+    setFingerprint(generateFingerprint());
+  }, []);
 
   const handleClick = async (service: string) => {
     if (service === "Others") {
@@ -29,7 +36,10 @@ export default function SubscriptionButtons() {
       const res = await fetch("/api/vote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ serviceName: service }),
+        body: JSON.stringify({ 
+          serviceName: service,
+          fingerprint: fingerprint 
+        }),
       });
 
       if (res.status === 200) {
@@ -72,11 +82,23 @@ export default function SubscriptionButtons() {
         />
       )}
       {activeModal === "other" && (
-        <OtherVoteModal onClose={() => setActiveModal(null)} serviceName={""} />
+        <OtherVoteModal 
+          onClose={() => setActiveModal(null)} 
+          serviceName="" 
+          fingerprint={fingerprint}
+        />
       )}
     </>
   );
 }
+
+
+
+
+
+
+
+
 
 // "use client";
 
@@ -94,12 +116,35 @@ export default function SubscriptionButtons() {
 // ];
 
 // export default function SubscriptionButtons() {
-//   const [isModalOpen, setIsModalOpen] = useState(false);
+//   const [activeModal, setActiveModal] = useState<
+//     "new" | "recorded" | "other" | null
+//   >(null);
+//   const [selectedService, setSelectedService] = useState<string>("");
 
-//   const handleClick = (service: string) => {
-//     if (service !== "Others") {
-//       setIsModalOpen(true);
+//   const handleClick = async (service: string) => {
+//     if (service === "Others") {
+//       setActiveModal("other");
+//       return;
 //     }
+
+//     try {
+//       const res = await fetch("/api/vote", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({ serviceName: service }),
+//       });
+
+//       if (res.status === 200) {
+//         setActiveModal("new");
+//       } else if (res.status === 409) {
+//         setActiveModal("recorded");
+//       } else {
+//         console.error("Unexpected response", await res.json());
+//       }
+//     } catch (err) {
+//       console.error("Vote error:", err);
+//     }
+//     setSelectedService(service);
 //   };
 
 //   return (
@@ -116,9 +161,21 @@ export default function SubscriptionButtons() {
 //         ))}
 //       </div>
 
-//       {/* Modal */}
-//       {isModalOpen && <RecordedVoteModal onClose={() => setIsModalOpen(false)} />}
-//       {/* {isModalOpen && <NewVoteModal onClose={() => setIsModalOpen(false)} />} */}
+//       {activeModal === "new" && (
+//         <NewVoteModal
+//           onClose={() => setActiveModal(null)}
+//           serviceName={selectedService}
+//         />
+//       )}
+//       {activeModal === "recorded" && (
+//         <RecordedVoteModal
+//           onClose={() => setActiveModal(null)}
+//           serviceName={selectedService}
+//         />
+//       )}
+//       {activeModal === "other" && (
+//         <OtherVoteModal onClose={() => setActiveModal(null)} serviceName={""} />
+//       )}
 //     </>
 //   );
 // }
