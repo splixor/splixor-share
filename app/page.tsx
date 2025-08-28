@@ -18,7 +18,7 @@ export default function Home() {
   // Create enough duplicates to ensure seamless loop
   const createLoopingArray = (
     array: { name: string; src: string }[],
-    multiplier = 40
+    multiplier = 12
   ) => {
     return Array(multiplier).fill(array).flat();
   };
@@ -29,18 +29,14 @@ export default function Home() {
         {/* Row 1 - Moving right */}
         <motion.div
           className="absolute flex gap-10 opacity-20"
-          animate={{
-            x: [0, "-50%"],
-          }}
+          animate={{ x: ["0%", "-100%"] }}
           transition={{
             duration: 15,
             repeat: Infinity,
             ease: "linear",
-            repeatType: "loop",
           }}
-          style={{ x: "-50%" }}
         >
-          {createLoopingArray(floatingLogos, 6).map((logo, i) => (
+          {createLoopingArray(floatingLogos, 8).map((logo, i) => (
             <div key={i} className="flex-shrink-0">
               <Image
                 src={logo.src}
@@ -56,51 +52,41 @@ export default function Home() {
         {/* Row 2 - Moving left */}
         <motion.div
           className="absolute top-80 flex gap-10 opacity-20"
-          animate={{
-            x: ["-50%", 0],
-          }}
+          animate={{ x: ["0%", "-100%"] }}
           transition={{
             duration: 20,
             repeat: Infinity,
             ease: "linear",
-            repeatType: "loop",
           }}
-          style={{ x: 0 }}
         >
-          {createLoopingArray(floatingLogos.slice().reverse(), 6).map(
-            (logo, i) => (
-              <div key={i} className="flex-shrink-0">
-                <Image
-                  src={logo.src}
-                  alt={logo.name}
-                  width={250}
-                  height={150}
-                  className="object-contain"
-                />
-              </div>
-            )
-          )}
+          {createLoopingArray(floatingLogos, 8).map((logo, i) => (
+            <div key={i} className="flex-shrink-0">
+              <Image
+                src={logo.src}
+                alt={logo.name}
+                width={250}
+                height={150}
+                className="object-contain"
+              />
+            </div>
+          ))}
         </motion.div>
 
         {/* Row 3 - Moving right slower */}
         <motion.div
-          className="absolute top-[40rem] flex gap-20 opacity-10"
-          animate={{
-            x: [0, "-50%"]
-          }}
+          className="absolute top-[40rem] flex gap-10 opacity-20"
+          animate={{ x: ["0%", "-100%"] }}
           transition={{
             duration: 25,
             repeat: Infinity,
             ease: "linear",
-            repeatType: "loop"
           }}
-          style={{ x: "-50%" }}
         >
-          {createLoopingArray(floatingLogos, 6).map((logo, i) => (
+          {createLoopingArray(floatingLogos, 8).map((logo, i) => (
             <div key={i} className="flex-shrink-0">
-               <Image 
-                src={logo.src} 
-                alt={logo.name} 
+              <Image
+                src={logo.src}
+                alt={logo.name}
                 width={250}
                 height={150}
                 className="object-contain"
