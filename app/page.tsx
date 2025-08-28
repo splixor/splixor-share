@@ -18,7 +18,7 @@ export default function Home() {
   // Create enough duplicates to ensure seamless loop
   const createLoopingArray = (
     array: { name: string; src: string }[],
-    multiplier = 4
+    multiplier = 40
   ) => {
     return Array(multiplier).fill(array).flat();
   };
