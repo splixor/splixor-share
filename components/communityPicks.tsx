@@ -78,14 +78,14 @@ export default function CommunityPicks() {
         Community Picks
       </h3>
 
-      <div className="grid grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-7 gap-4">
+      <div className="grid grid-cols-7 gap-0">
         {voteStats.map((stat) => {
           const heightPercentage = totalVotes > 0 ? Math.max((stat.percentage / 100) * 100, 5) : 5;
           
           return (
             <div key={stat.service} className="flex flex-col items-center">
               {/* Progress Bar */}
-              <div className="w-6 h-16 bg-gray-800 rounded-t-full overflow-hidden mb-2 flex flex-col-reverse">
+              <div className="w-3 h-10 bg-gray-800 rounded-t-full overflow-hidden mb-2 flex flex-col-reverse">
                 <div 
                   className="transition-all duration-500 ease-out rounded-t-full"
                   style={{
@@ -102,7 +102,7 @@ export default function CommunityPicks() {
               </div>
               
               {/* Service Name */}
-              <span className="text-[#A6A6B0] text-xs font-family-general-sans font-medium text-center leading-tight">
+              <span className="text-[#A6A6B0] text-[10px] font-family-general-sans font-medium text-center leading-tight">
                 {stat.service === 'YouTube Premium' ? 'Youtube Premium' : stat.service}
               </span>
             </div>
