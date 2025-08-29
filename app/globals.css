@@ -28,3 +28,97 @@ body {
 ::-webkit-scrollbar {
   width: 0;
 }
+
+.home-container {
+  min-height: 100vh;
+  background-color: black;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-row {
+  position: absolute;
+  display: flex;
+  gap: 2.5rem;
+  opacity: 0.2;
+  width: max-content;
+}
+
+.logo-row-1 {
+  animation: scroll-left 15s linear infinite;
+}
+
+.logo-row-2 {
+  top: 20rem;
+  animation: scroll-right 20s linear infinite;
+}
+
+.logo-row-3 {
+  top: 40rem;
+  animation: scroll-left 25s linear infinite;
+}
+
+@keyframes scroll-left {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.card-container {
+  width: 100%;
+  max-width: 535px;
+  text-align: center;
+  padding: 2rem 1rem;
+  background-color: #0B0B0F;
+  border: 1px solid #2A2A33;
+  border-radius: 1rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #E8EAED;
+  margin-bottom: 1rem;
+  font-family: 'Clash Display', sans-serif;
+}
+
+.subtitle {
+  color: #A6A6B0;
+  font-size: 1rem;
+  max-width: 447px;
+  margin: 0 auto;
+  font-family: 'General Sans', sans-serif;
+  font-weight: 500;
+}
+
+.highlight-text {
+  color: #22C55E;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  font-family: 'Clash Display', sans-serif;
+}

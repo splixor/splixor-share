@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
 import SubscriptionButtons from "@/components/subscription";
 import CommunityPicks from "@/components/communityPicks";
 
@@ -15,118 +14,66 @@ export default function Home() {
     { name: "Subb", src: "/logos/subb.png" },
   ];
 
-  // Create enough duplicates to ensure seamless loop
-  const createLoopingArray = (
-    array: { name: string; src: string }[],
-    multiplier = 12
-  ) => {
-    return Array(multiplier).fill(array).flat();
-  };
-
   return (
-    <main className="min-h-screen bg-black text-white relative overflow-hidden">
+    <main className="home-container">
       <div className="absolute inset-0 pointer-events-none">
-        {/* Row 1 - Moving right */}
-        <motion.div
-          className="absolute flex gap-10 opacity-20"
-          animate={{ x: ["0%", "-100%"] }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        >
-          {createLoopingArray(floatingLogos, 8).map((logo, i) => (
-            <div key={i} className="flex-shrink-0">
-              <Image
-                src={logo.src}
-                alt={logo.name}
-                width={250}
-                height={150}
-                className="object-contain"
-              />
-            </div>
+        <div className="logo-row logo-row-1">
+          {floatingLogos.concat(floatingLogos).map((logo, i) => (
+            <Image
+              key={i}
+              src={logo.src}
+              alt={logo.name}
+              width={250}
+              height={150}
+            />
           ))}
-        </motion.div>
+        </div>
 
-        {/* Row 2 - Moving left */}
-        <motion.div
-          className="absolute top-80 flex gap-10 opacity-20"
-          animate={{ x: ["0%", "-100%"] }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        >
-          {createLoopingArray(floatingLogos, 8).map((logo, i) => (
-            <div key={i} className="flex-shrink-0">
-              <Image
-                src={logo.src}
-                alt={logo.name}
-                width={250}
-                height={150}
-                className="object-contain"
-              />
-            </div>
+        <div className="logo-row logo-row-2">
+          {floatingLogos.concat(floatingLogos).map((logo, i) => (
+            <Image
+              key={i}
+              src={logo.src}
+              alt={logo.name}
+              width={250}
+              height={150}
+            />
           ))}
-        </motion.div>
+        </div>
 
-        {/* Row 3 - Moving right slower */}
-        <motion.div
-          className="absolute top-[40rem] flex gap-10 opacity-20"
-          animate={{ x: ["0%", "-100%"] }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        >
-          {createLoopingArray(floatingLogos, 8).map((logo, i) => (
-            <div key={i} className="flex-shrink-0">
-              <Image
-                src={logo.src}
-                alt={logo.name}
-                width={250}
-                height={150}
-                className="object-contain"
-              />
-            </div>
+        <div className="logo-row logo-row-3">
+          {floatingLogos.concat(floatingLogos).map((logo, i) => (
+            <Image
+              key={i}
+              src={logo.src}
+              alt={logo.name}
+              width={250}
+              height={150}
+            />
           ))}
-        </motion.div>
+        </div>
       </div>
 
-      {/* main content div */}
-      <section className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-8">
-        <div className="md:w-[535px] text-center px-4 py-8 bg-[#0B0B0F] border border-[#2A2A33] rounded-2xl">
-          {/* Logo */}
+      <section className="content-wrapper">
+        <div className="card-container">
           <div className="mb-8">
-            <div>
-              <Image
-                src="/splixor.png"
-                alt="Splixor Logo"
-                width={40}
-                height={40}
-                className="mx-auto mb-4"
-              />
-            </div>
-            <h1 className="text-xl md:text-4xl font-semibold text-[#E8EAED] mb-4 font-family-clash-display">
-              Splixor
-            </h1>
-            <p className="text-[#A6A6B0] text-sm lg:text-base max-w-[447px] mx-auto font-family-general-sans font-medium">
+            <Image
+              src="/splixor.png"
+              alt="Splixor Logo"
+              width={40}
+              height={40}
+              className="mx-auto mb-4"
+            />
+            <h1 className="title">Splixor</h1>
+            <p className="subtitle">
               We&apos;re cooking up a smarter way to split and share <br />
               your favorite subscriptions.
             </p>
           </div>
 
-          {/* Main Section */}
-          <div className="">
-            <h2 className="text-[#22C55E] text-xl md:text-2xl font-medium font-family-clash-display mb-2">
-              While you wait, tell us 👇
-            </h2>
-            <p className="text-[#A6A6B0] text-sm md:text-base font-family-general-sans font-medium">
-              Which subscription do you use the most?
-            </p>
+          <div>
+            <h2 className="highlight-text">While you wait, tell us 👇</h2>
+            <p className="subtitle">Which subscription do you use the most?</p>
             <SubscriptionButtons />
           </div>
         </div>
