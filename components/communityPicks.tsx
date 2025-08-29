@@ -73,7 +73,7 @@ export default function CommunityPicks() {
   }
 
   return (
-    <div className="mt-4 py-6 px-6 bg-[#141419] rounded-2xl md:w-[535px] w-full">
+    <div className="mt-4 py-6 px-6 bg-[#141419] rounded-4xl md:w-[535px] w-full">
       <h3 className="text-white text-base md:text-lg font-medium font-family-clash-display mb-6">
         Community Picks
       </h3>

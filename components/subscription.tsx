@@ -64,7 +64,7 @@ export default function SubscriptionButtons() {
           <button
             key={service}
             onClick={() => handleClick(service)}
-            className="cursor-pointer px-6 py-3 h-[48px] rounded-full transition-all duration-200 hover:scale-105 font-family-general-sans font-medium md:text-sm bg-[#2A2A33] border border-[#2A2A33] text-[#A6A6B0] hover:bg-[#4F46E5] hover:text-white"
+            className="cursor-pointer px-3 py-2 rounded-full transition-all duration-200 hover:scale-105 font-family-general-sans font-medium text-sm bg-[#2A2A33] border border-[#2A2A33] text-[#A6A6B0] hover:bg-[#4F46E5] hover:text-white"
           >
             {service}
           </button>
