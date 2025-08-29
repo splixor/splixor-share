@@ -85,7 +85,7 @@ export default function CommunityPicks() {
           return (
             <div key={stat.service} className="flex flex-col items-center">
               {/* Progress Bar */}
-              <div className="w-3 h-10 bg-gray-800 rounded-t-full overflow-hidden mb-2 flex flex-col-reverse">
+              <div className="w-4 h-10 bg-gray-800 rounded-t-full overflow-hidden mb-2 flex flex-col-reverse">
                 <div 
                   className="transition-all duration-500 ease-out rounded-t-full"
                   style={{
