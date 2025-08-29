@@ -20,8 +20,23 @@ export default function CommunityPicks() {
     'Spotify', 'YouTube Premium', 'Others'
   ];
 
+  // Subscribe to vote updates
   useEffect(() => {
+    // Initial fetch
     fetchVoteStats();
+
+    // Create an event listener for vote updates
+    const handleVoteUpdate = () => {
+      fetchVoteStats();
+    };
+
+    // Subscribe to the custom event
+    window.addEventListener('voteUpdated', handleVoteUpdate);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('voteUpdated', handleVoteUpdate);
+    };
   }, []);
 
   const fetchVoteStats = async () => {

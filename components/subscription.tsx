@@ -44,6 +44,8 @@ export default function SubscriptionButtons() {
 
       if (res.status === 200) {
         setActiveModal("new");
+        // Dispatch event to trigger stats refresh
+        window.dispatchEvent(new Event('voteUpdated'));
       } else if (res.status === 409) {
         setActiveModal("recorded");
       } else {

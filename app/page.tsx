@@ -54,8 +54,8 @@ export default function Home() {
         </div>
       </div>
 
-      <section className="content-wrapper">
-        <div className="card-container">
+        <section className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-8">
+        <div className="md:w-[535px] text-center px-4 py-8 bg-[#0B0B0F] border border-[#2A2A33] rounded-2xl">
           <div className="mb-8">
             <Image
               src="/splixor.png"
@@ -64,16 +64,22 @@ export default function Home() {
               height={40}
               className="mx-auto mb-4"
             />
-            <h1 className="title">Splixor</h1>
-            <p className="subtitle">
+             <h1 className="text-xl md:text-4xl font-semibold text-[#E8EAED] mb-4 font-family-clash-display">
+              Splixor
+            </h1>
+            <p className="text-[#A6A6B0] text-sm lg:text-base max-w-[447px] mx-auto font-family-general-sans font-medium">
               We&apos;re cooking up a smarter way to split and share <br />
               your favorite subscriptions.
             </p>
           </div>
 
           <div>
-            <h2 className="highlight-text">While you wait, tell us 👇</h2>
-            <p className="subtitle">Which subscription do you use the most?</p>
+             <h2 className="text-[#22C55E] text-xl md:text-2xl font-medium font-family-clash-display mb-2">
+              While you wait, tell us 👇
+            </h2>
+            <p className="text-[#A6A6B0] text-sm md:text-base font-family-general-sans font-medium">
+              Which subscription do you use the most?
+            </p>
             <SubscriptionButtons />
           </div>
         </div>

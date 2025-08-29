@@ -104,13 +104,24 @@ export async function GET() {
       return NextResponse.json({ error: 'Failed to fetch votes' }, { status: 500 })
     }
 
+    // Define predefined services
+    const predefinedServices = new Set([
+      'Apple Music', 'Canva', 'Freepik', 'Netflix', 
+      'Spotify', 'YouTube Premium', 'Others'
+    ]);
+
     // Count votes by service
     const voteCounts: { [key: string]: number } = {}
     const totalVotes = votes.length
 
     votes.forEach(vote => {
-      voteCounts[vote.vote_option] = (voteCounts[vote.vote_option] || 0) + 1
-    })
+      // If the vote is for a predefined service, count it normally
+      // Otherwise, add it to "Others"
+      const serviceKey = predefinedServices.has(vote.vote_option) 
+        ? vote.vote_option 
+        : 'Others';
+      voteCounts[serviceKey] = (voteCounts[serviceKey] || 0) + 1
+    });
 
     // Calculate percentages
     const voteStats = Object.entries(voteCounts).map(([service, count]) => ({

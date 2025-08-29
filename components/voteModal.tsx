@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import Image from "next/image";
@@ -191,7 +192,8 @@ export function OtherVoteModal({
       });
 
       if (res.status === 200) {
-        // Show success feedback or close modal
+        // Dispatch event to trigger stats refresh
+        window.dispatchEvent(new Event('voteUpdated'));
         onClose();
       } else if (res.status === 409) {
         // User has already voted
