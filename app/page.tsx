@@ -15,7 +15,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="home-container">
+    <main className="min-h-screen bg-black text-white relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="logo-row logo-row-1">
           {floatingLogos.concat(floatingLogos).map((logo, i) => (
@@ -54,8 +54,8 @@ export default function Home() {
         </div>
       </div>
 
-        <section className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-8">
-        <div className="md:w-[535px] text-center px-4 py-8 bg-[#0B0B0F] border border-[#2A2A33] rounded-2xl">
+      <section className="relative z-10 flex flex-col items-center justify-center min-h-screen px-1 py-8">
+        <div className="md:w-[535px] text-center px-4 py-8 bg-[#0B0B0F] border border-[#2A2A33] rounded-4xl">
           <div className="mb-8">
             <Image
               src="/splixor.png"
@@ -64,7 +64,7 @@ export default function Home() {
               height={40}
               className="mx-auto mb-4"
             />
-             <h1 className="text-xl md:text-4xl font-semibold text-[#E8EAED] mb-4 font-family-clash-display">
+            <h1 className="text-xl md:text-4xl font-semibold text-[#E8EAED] mb-4 font-family-clash-display">
               Splixor
             </h1>
             <p className="text-[#A6A6B0] text-sm lg:text-base max-w-[447px] mx-auto font-family-general-sans font-medium">
@@ -74,7 +74,7 @@ export default function Home() {
           </div>
 
           <div>
-             <h2 className="text-[#22C55E] text-xl md:text-2xl font-medium font-family-clash-display mb-2">
+            <h2 className="text-[#22C55E] text-xl md:text-2xl font-medium font-family-clash-display mb-2">
               While you wait, tell us 👇
             </h2>
             <p className="text-[#A6A6B0] text-sm md:text-base font-family-general-sans font-medium">
@@ -88,4 +88,3 @@ export default function Home() {
     </main>
   );
 }
-
