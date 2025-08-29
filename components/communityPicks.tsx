@@ -102,7 +102,7 @@ export default function CommunityPicks() {
               </div>
               
               {/* Service Name */}
-              <span className="text-[#A6A6B0] text-[10px] font-family-general-sans font-medium text-center leading-tight">
+              <span className="text-[#A6A6B0] text-[10px] md:text-sm font-family-general-sans font-medium text-center leading-tight">
                 {stat.service === 'YouTube Premium' ? 'Youtube Premium' : stat.service}
               </span>
             </div>
