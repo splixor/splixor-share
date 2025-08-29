@@ -9,15 +9,6 @@ interface VoteStat {
   percentage: number;
 }
 
-// const serviceColors: { [key: string]: string } = {
-//   'Netflix': '#E50914',
-//   'Spotify': '#1DB954',
-//   'YouTube Premium': '#FF0000',
-//   'Freepik': '#1273EB',
-//   'Apple Music': '#FA233B',
-//   'Canva': '#00C4CC',
-//   'Others': '#6B7280'
-// };
 
 export default function CommunityPicks() {
   const [voteStats, setVoteStats] = useState<VoteStat[]>([]);
@@ -74,7 +65,6 @@ export default function CommunityPicks() {
 
       <div className="grid grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-7 gap-4">
         {voteStats.map((stat) => {
-          // const color = serviceColors[stat.service] || '#6B7280';
           const heightPercentage = totalVotes > 0 ? Math.max((stat.percentage / 100) * 100, 5) : 5;
           
           return (
@@ -83,8 +73,7 @@ export default function CommunityPicks() {
               <div className="w-6 h-16 bg-gray-800 rounded-t-full overflow-hidden mb-2 flex flex-col-reverse">
                 <div 
                   className="transition-all duration-500 ease-out rounded-t-full"
-                  style={{ 
-                    // backgroundColor: color,
+                  style={{
                      background: `linear-gradient(to top, #FD4242, #FF841F, #00C649)`,
                     height: `${heightPercentage}%`,
                     minHeight: stat.count > 0 ? '8px' : '0px'
