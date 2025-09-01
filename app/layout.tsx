@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     siteName: 'Splixor',
     images: [
       {
-        url: '/og-image.png',
+        url: 'https://www.splixor.com/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Splixor - Smart Subscription Sharing Platform',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     description: "We're cooking up a smarter way to split and share your favorite subscriptions.",
     site: '@splixor',
     creator: '@splixor',
-    images: ['/og-image.png'],
+    images: ['https://www.splixor.com/og-image.png'],
   },
 
   robots: {
