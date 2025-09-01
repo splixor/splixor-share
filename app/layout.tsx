@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Head from "next/head"
 import "./globals.css";
 import { clashDisplay, generalSans } from "./fonts";
 
@@ -9,11 +10,11 @@ export const metadata: Metadata = {
   authors: [{ name: 'The Splixor Team' }],
   creator: 'Splixor',
   publisher: 'Splixor',
-  
+
   openGraph: {
     type: 'website',
     locale: 'en_NG',
-    url: 'https://www.splixor.com/',
+    url: 'https://www.splixor.com',
     title: 'Splixor - Share Subscription Services',
     description: "We're cooking up a smarter way to split and share your favorite subscriptions.",
     siteName: 'Splixor',
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  
+
   // Twitter Card metadata
   twitter: {
     card: 'summary_large_image',
@@ -57,6 +58,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <meta property="og:image" content="https://www.splixor.com/og-image.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+      </Head>
       <body
         className={`${generalSans.variable} ${clashDisplay.variable} antialiased`}
       >
