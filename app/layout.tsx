@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Head from "next/head"
 import "./globals.css";
 import { clashDisplay, generalSans } from "./fonts";
 
@@ -20,7 +19,7 @@ export const metadata: Metadata = {
     siteName: 'Splixor',
     images: [
       {
-        url: 'https://www.splixor.com/og-image.png',
+        url: '/og-image.png', // Use relative path, Next.js will handle the full URL
         width: 1200,
         height: 630,
         alt: 'Splixor - Smart Subscription Sharing Platform',
@@ -28,14 +27,13 @@ export const metadata: Metadata = {
     ],
   },
 
-  // Twitter Card metadata
   twitter: {
     card: 'summary_large_image',
     title: 'Splixor - Smart Subscription Sharing',
     description: "We're cooking up a smarter way to split and share your favorite subscriptions.",
     site: '@splixor',
     creator: '@splixor',
-    images: ['https://www.splixor.com/og-image.png'],
+    images: ['/og-image.png'],
   },
 
   robots: {
@@ -49,6 +47,12 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+
+  // Additional properties for better social sharing
+  metadataBase: new URL('https://www.splixor.com'),
+  alternates: {
+    canonical: 'https://www.splixor.com',
+  },
 }
 
 export default function RootLayout({
@@ -58,11 +62,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
-        <meta property="og:image" content="https://www.splixor.com/og-image.png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-      </Head>
       <body
         className={`${generalSans.variable} ${clashDisplay.variable} antialiased`}
       >
