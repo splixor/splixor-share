@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { clashDisplay, generalSans } from "./fonts";
 
+
 export const metadata: Metadata = {
   title: 'Splixor - Share Subscription Services',
   description: "We're cooking up a smarter way to split and share your favorite subscriptions.",
