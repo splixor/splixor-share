@@ -53,6 +53,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.splixor.com',
   },
+
+  other: {
+    'og:image:secure_url': 'https://www.splixor.com/opengraph-image.png',
+    'og:image:type': 'image/png',
+    'og:image:width': '1200',
+    'og:image:height': '630',
+    'og:image:alt': 'Splixor - Smart Subscription Sharing Platform',
+  },
 }
 
 export default function RootLayout({
