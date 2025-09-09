@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: 'Splixor',
     images: [
       {
-        url: '/og-image.png', // Use relative path, Next.js will handle the full URL
+        url: '/opengraph-image.png',
         width: 1200,
         height: 630,
         alt: 'Splixor - Smart Subscription Sharing Platform',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     description: "We're cooking up a smarter way to split and share your favorite subscriptions.",
     site: '@splixor',
     creator: '@splixor',
-    images: ['/og-image.png'],
+    images: ['/opengraph-image.png'],
   },
 
   robots: {
@@ -49,7 +49,6 @@ export const metadata: Metadata = {
     },
   },
 
-  // Additional properties for better social sharing
   metadataBase: new URL('https://www.splixor.com'),
   alternates: {
     canonical: 'https://www.splixor.com',
